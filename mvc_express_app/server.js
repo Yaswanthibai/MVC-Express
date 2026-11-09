@@ -15,6 +15,10 @@ connectDB(MONGO_URI);
 
 app.use("/api/v1/movies", movieRoutes);
 
+app.get("/", (req, res) => {
+    res.json({ message: "Movie API is running successfully" });
+});
+
 //404
 app.use((req, res) => {
   res.status(404);
