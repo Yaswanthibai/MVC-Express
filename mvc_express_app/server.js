@@ -11,7 +11,16 @@ const app = express();
 app.use(express.json());
 
 //establishing connection with mongodb
-connectDB(MONGO_URI);
+app.use(async (req, res, next) => {
+    try {
+        await connectDB();
+        next();
+    } catch (error) {
+        res.status(500).json({
+            message: "Database connection failed"
+        });
+    }
+});
 
 app.use("/api/v1/movies", movieRoutes);
 
