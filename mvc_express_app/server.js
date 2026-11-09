@@ -11,11 +11,12 @@ const app = express();
 app.use(express.json());
 
 //establishing connection with mongodb
-app.use(async (req, res, next) => {
+app.use("/api/v1/movies", async (req, res, next) => {
     try {
         await connectDB();
         next();
     } catch (error) {
+        // console.log(error.message);
         res.status(500).json({
             message: "Database connection failed"
         });
